@@ -1,0 +1,25 @@
+{
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "L4T_VERSION": "r35.3.1",
+            "BASE_IMAGE_NAME": "nvcr.io/nvidia/l4t-base:35.3.1",
+            "DS_VERSION": "6.2",
+            "CUDA_VER": "11.4"
+        }
+    },
+    "mounts": [
+        {
+            "type": "bind",
+            "source": "/tmp/argus_socket",
+            "target": "/tmp/argus_socket"
+        },
+        {
+            "type": "bind",
+            "source": "/usr/src/jetson_multimedia_api",
+            "target": "/usr/src/jetson_multimedia_api:ro"
+        }
+    ],
+    "remoteUser": "vscode",
+    "updateRemoteUserUID": true
+}
