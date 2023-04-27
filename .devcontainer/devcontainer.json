@@ -17,9 +17,20 @@
         {
             "type": "bind",
             "source": "/usr/src/jetson_multimedia_api",
-            "target": "/usr/src/jetson_multimedia_api:ro"
+            "target": "/usr/src/jetson_multimedia_api"
+        },
+        {
+            "type": "bind",
+            "source": "${env:HOME}/.Xauthority",
+            "target": "/home/vscode/.Xauthority"
         }
     ],
     "remoteUser": "vscode",
-    "updateRemoteUserUID": true
+    "updateRemoteUserUID": true,
+    "runArgs": [
+        "--env-file",
+        ".devcontainer/devcontainer.env",
+        "--network",
+        "host"
+    ]
 }

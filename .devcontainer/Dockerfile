@@ -17,42 +17,49 @@ ENV CUDA_VER=$CUDA_VER
 
 RUN apt update && \
     apt install -y \
+# X11含めた動作確認におよそ使うであろう範囲
+        gstreamer1.0-tools \
+        gstreamer1.0-x \
+        x11-apps \
         ca-certificates \
         curl \
         gnupg \
         sudo \
         git \
-# ここからは好みのパッケージを記述する
-# GStreamer
-        build-essential \
-        pkg-config \
-        libx11-dev \
-        libgtk-3-dev \
-        libexpat1-dev \
-        libjpeg-dev \
-        libgstreamer1.0-dev \
-        libclang-dev \
-        jq \
-        libgstreamer-plugins-base1.0-dev \
-# DeepStream
-        libssl1.1 \
-        libgstreamer1.0-0 \
-        gstreamer1.0-tools \
-        gstreamer1.0-plugins-good \
-        gstreamer1.0-plugins-bad \
-        gstreamer1.0-plugins-ugly \
-        gstreamer1.0-libav \
-        libgstreamer-plugins-base1.0-dev \
-        libgstrtspserver-1.0-0 \
-        libjansson4 \
-        libyaml-cpp-dev \
-# nvinfer関係のビルドや実行に必要だがdeepstreamで一緒にインストールされないものを含む
-    	cuda-nvcc-11-4 \
-        libcudla-11-4 \
-        deepstream-${DS_VERSION} \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        pkg-config
 
+# # ここからは好みのパッケージを追加する
+# RUN apt install -y \
+# # GStreamer
+#         build-essential \
+#         libx11-dev \
+#         libgtk-3-dev \
+#         libexpat1-dev \
+#         libjpeg-dev \
+#         libgstreamer1.0-dev \
+#         libclang-dev \
+#         jq \
+#         libgstreamer-plugins-base1.0-dev \
+# # DeepStream
+#         libssl1.1 \
+#         libgstreamer1.0-0 \
+#         gstreamer1.0-tools \
+#         gstreamer1.0-plugins-good \
+#         gstreamer1.0-plugins-bad \
+#         gstreamer1.0-plugins-ugly \
+#         gstreamer1.0-libav \
+#         libgstreamer-plugins-base1.0-dev \
+#         libgstrtspserver-1.0-0 \
+#         libjansson4 \
+#         libyaml-cpp-dev \
+# # nvinfer関係のビルドや実行に必要だがdeepstreamで一緒にインストールされないものを含む
+#     	cuda-nvcc-11-4 \
+#         libcudla-11-4 \
+#         deepstream-${DS_VERSION} \
+    # && apt-get clean \
+    # && rm -rf /var/lib/apt/lists/*
+
+# Docker内の作業を非rootにするためにユーザーを作る
 ARG USERNAME=vscode
 ARG GROUPNAME=vscode
 ARG USER_UID=2000
